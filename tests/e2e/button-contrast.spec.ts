@@ -39,7 +39,6 @@ test.describe( 'Accessible Button contrast enforcement', () => {
 		await expect( swatches.first() ).toBeVisible();
 		// Let the sidebar's slide-in animation finish; the swatch click's
 		// actionability check otherwise reports "not stable" forever.
-		// eslint-disable-next-line playwright/no-wait-for-timeout
 		await page.waitForTimeout( 750 );
 
 		// Pick every swatch in turn: each must produce an AA-passing badge.

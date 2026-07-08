@@ -1,0 +1,43 @@
+/**
+ * Accessible Button — front-end and editor styles.
+ *
+ * A11y requirements baked in:
+ * - Minimum 44×44 CSS px target size (WCAG 2.5.5 enhanced; exceeds the
+ *   24×24 minimum of 2.5.8) via padding + min-height.
+ * - Always-visible :focus-visible indicator that doesn't rely on color
+ *   alone (2px outline + offset).
+ * - No fixed font-size: inherits the theme's scale (theme.json presets
+ *   win — Foundation §4.6).
+ */
+
+.wp-block-accessible-blocks-button {
+
+	.ab-button {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		box-sizing: border-box;
+		min-height: 44px;
+		min-width: 44px;
+		padding: 0.6em 1.4em;
+		border: none;
+		border-radius: 0.25em;
+		text-decoration: none;
+		cursor: pointer;
+		line-height: 1.2;
+
+		&:focus-visible {
+			outline: 2px solid currentcolor;
+			outline-offset: 3px;
+		}
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+
+	&.ab-button--full .ab-button {
+		display: flex;
+		width: 100%;
+	}
+}

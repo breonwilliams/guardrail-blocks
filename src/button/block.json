@@ -1,0 +1,50 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "accessible-blocks/button",
+	"version": "0.1.0",
+	"title": "Accessible Button",
+	"category": "design",
+	"icon": "button",
+	"description": "A call-to-action button whose colors are always WCAG-safe: pick a background from your theme palette and the most readable text color is chosen for you — re-checked on every page view.",
+	"keywords": [ "button", "cta", "link", "accessible", "contrast" ],
+	"textdomain": "accessible-blocks",
+	"attributes": {
+		"text": {
+			"type": "string",
+			"default": ""
+		},
+		"url": {
+			"type": "string",
+			"default": ""
+		},
+		"backgroundSlug": {
+			"type": "string",
+			"default": ""
+		},
+		"width": {
+			"type": "string",
+			"enum": [ "auto", "full" ],
+			"default": "auto"
+		}
+	},
+	"supports": {
+		"html": false,
+		"color": false,
+		"typography": {
+			"fontSize": true
+		},
+		"spacing": {
+			"margin": true
+		},
+		"anchor": true
+	},
+	"example": {
+		"attributes": {
+			"text": "Get started"
+		}
+	},
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

@@ -127,7 +127,7 @@ A **focused, accessibility-first library that coexists with core blocks**, not a
 |---|---|---|---|
 | **Section** | static container | `InnerBlocks`, `providesContext` (heading level + landmark), block `supports` (spacing/color) | Provides heading-level context; optional landmark `role`/`aria-label` |
 | **Accessible Heading** | **dynamic** | `usesContext`, `render_callback`, `RichText` | Level derived from context; correct `<hN>` guaranteed |
-| **Button / CTA** | static | block `supports` (color/border), `InspectorControls` | Contrast-safe; focus-visible; min target size |
+| **Button / CTA** | **dynamic** *(changed from static, 2026-07-08: render.php re-validates contrast against the live palette so Guarantee A's render-time layer holds even if the theme changes after publish)* | `InspectorControls`, `render.php` + shared PHP `Contrast` class | Contrast-safe (all 3 layers); focus-visible; min target size |
 | **Card** + **Card Grid** | static (grid uses `InnerBlocks`) | `InnerBlocks`, `supports`, variations | Semantic structure; contrast-safe; keyboard-reachable links |
 | **Accordion** (+ Item) | static, interactive | `InnerBlocks`, view script | ARIA disclosure + keyboard |
 | **Tabs** (+ Tab) | static, interactive | `InnerBlocks`, `providesContext`, view script | ARIA tablist + arrow-key nav |

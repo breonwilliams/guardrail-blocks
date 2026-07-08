@@ -91,8 +91,10 @@ test.describe( 'Accessible Button contrast enforcement', () => {
 			}, slug );
 			expect( applied ).toBe( slug );
 
+			// .first(): the badge text matches both the Notice and a nested
+			// wrapper element (strict-mode ambiguity, not duplication).
 			await expect(
-				page.getByText( /Contrast [\d.]+:1 — AA ✓/ )
+				page.getByText( /Contrast [\d.]+:1 — AA ✓/ ).first()
 			).toBeVisible();
 		}
 	} );

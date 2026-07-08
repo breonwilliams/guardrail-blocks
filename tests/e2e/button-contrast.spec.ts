@@ -19,16 +19,18 @@ test.describe( 'Accessible Button contrast enforcement', () => {
 			attributes: { text: 'Get started' },
 		} );
 
-		// Open the settings sidebar only if it isn't already (the utility
-		// helper times out when a fresh profile opens with it visible).
-		const settingsToggle = page
-			.getByRole( 'button', { name: 'Settings', exact: true } )
-			.first();
-		if (
-			( await settingsToggle.getAttribute( 'aria-pressed' ) ) !== 'true'
-		) {
-			await settingsToggle.click();
-		}
+		// Open the block inspector via the store — robust across WP
+		// versions (top-bar toggle labels change between releases).
+		await page.evaluate( () => {
+			const w = window as any;
+			w.wp.data
+				.dispatch( 'core/interface' )
+				.enableComplementaryArea( 'core', 'edit-post/block' );
+			// Older editors use the scoped store name.
+			w.wp.data
+				.dispatch( 'core/interface' )
+				.enableComplementaryArea( 'core/edit-post', 'edit-post/block' );
+		} );
 
 		// The color options are palette swatches — no custom color input.
 		const swatches = page.locator(

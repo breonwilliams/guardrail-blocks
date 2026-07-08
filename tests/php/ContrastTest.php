@@ -65,6 +65,27 @@ final class ContrastTest extends TestCase {
 		);
 	}
 
+	public function test_parses_var_with_color_fallback(): void {
+		// Blocksy/Astra-style theme.json palettes.
+		$this->assertSame(
+			array(
+				'r' => 40,
+				'g' => 114,
+				'b' => 250,
+			),
+			Contrast::parse_color( 'var(--theme-palette-color-1, #2872fa)' )
+		);
+		$this->assertSame(
+			array(
+				'r' => 255,
+				'g' => 255,
+				'b' => 255,
+			),
+			Contrast::parse_color( 'var(--a, var(--b, #fff))' )
+		);
+		$this->assertNull( Contrast::parse_color( 'var(--no-fallback)' ) );
+	}
+
 	public function test_rejects_unparseable_values(): void {
 		$this->assertNull( Contrast::parse_color( 'var(--wp--preset--color--primary)' ) );
 		$this->assertNull( Contrast::parse_color( 'hsl(0, 100%, 50%)' ) );
@@ -189,6 +210,36 @@ final class ContrastTest extends TestCase {
 
 		$this->assertTrue( $result['from_palette'] );
 		$this->assertSame( 'base', $result['foreground']['slug'] );
+	}
+
+	public function test_theme_palette_wins_over_core_defaults(): void {
+		$original = $GLOBALS['accessible_blocks_test_palette'];
+
+		$GLOBALS['accessible_blocks_test_palette'] = array(
+			'default' => array(
+				array(
+					'slug'  => 'black',
+					'color' => '#000000',
+				),
+			),
+			'theme'   => array(
+				array(
+					'slug'  => 'brand-dark',
+					'color' => '#192a3d',
+				),
+				array(
+					'slug'  => 'brand-light',
+					'color' => '#f2f5f7',
+				),
+			),
+		);
+
+		// Core black (19:1) would beat brand-dark (12:1) — but defaults are
+		// excluded when the theme defines a palette, mirroring the editor.
+		$result = Contrast::pick_accessible_foreground( '#f2f5f7' );
+		$this->assertSame( 'brand-dark', $result['foreground']['slug'] );
+
+		$GLOBALS['accessible_blocks_test_palette'] = $original;
 	}
 
 	public function test_color_for_slug_reads_live_palette(): void {

@@ -50,6 +50,23 @@ describe( 'parseColor', () => {
 		} );
 	} );
 
+	it( 'parses var() with a color fallback (Blocksy/Astra-style palettes)', () => {
+		expect( parseColor( 'var(--theme-palette-color-1, #2872fa)' ) ).toEqual(
+			{ r: 40, g: 114, b: 250 }
+		);
+		expect( parseColor( 'var(--x, rgb(10, 20, 30))' ) ).toEqual( {
+			r: 10,
+			g: 20,
+			b: 30,
+		} );
+		// Nested var fallbacks resolve recursively.
+		expect( parseColor( 'var(--a, var(--b, #fff))' ) ).toEqual( {
+			r: 255,
+			g: 255,
+			b: 255,
+		} );
+	} );
+
 	it( 'returns null for unparseable values instead of guessing', () => {
 		expect( parseColor( 'var(--wp--preset--color--primary)' ) ).toBeNull();
 		expect( parseColor( 'hsl(0, 100%, 50%)' ) ).toBeNull();

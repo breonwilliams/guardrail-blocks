@@ -51,6 +51,16 @@ export const WCAG_THRESHOLDS: Record<
 export function parseColor( input: string ): RGB | null {
 	const value = input.trim().toLowerCase();
 
+	// CSS variable with a fallback — the format popular themes (Blocksy,
+	// Astra, Kadence) use for their entire theme.json palette, e.g.
+	// var(--theme-palette-color-1, #2872fa). The fallback is the theme's
+	// canonical value, so parse it (recursively, for nested vars). A var()
+	// without a fallback stays unverifiable → null.
+	const varMatch = /^var\(\s*--[\w-]+\s*(?:,\s*(.+))?\)$/.exec( value );
+	if ( varMatch ) {
+		return varMatch[ 1 ] ? parseColor( varMatch[ 1 ] ) : null;
+	}
+
 	const hexMatch = /^#([0-9a-f]{3,8})$/.exec( value );
 	if ( hexMatch && hexMatch[ 1 ] ) {
 		const hex = hexMatch[ 1 ];

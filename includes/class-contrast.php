@@ -43,6 +43,14 @@ class Contrast {
 	public static function parse_color( string $input ): ?array {
 		$value = strtolower( trim( $input ) );
 
+		// CSS variable with a fallback — the format popular themes
+		// (Blocksy, Astra, Kadence) use for their theme.json palettes.
+		// Parse the fallback (recursively); a var() without one stays
+		// unverifiable. Mirrors parseColor() in contrast.ts.
+		if ( preg_match( '/^var\(\s*--[\w-]+\s*(?:,\s*(.+))?\)$/', $value, $m ) ) {
+			return isset( $m[1] ) && '' !== $m[1] ? self::parse_color( $m[1] ) : null;
+		}
+
 		if ( preg_match( '/^#([0-9a-f]{3,8})$/', $value, $m ) ) {
 			$hex = $m[1];
 			$len = strlen( $hex );
@@ -151,7 +159,14 @@ class Contrast {
 
 		$merged = array();
 
-		foreach ( array( 'theme', 'custom', 'default' ) as $origin ) {
+		// Prefer the theme's own palette (matches the editor, which hides
+		// core defaults when a theme defines its palette): foregrounds stay
+		// brand-consistent. Core defaults only when the theme provides none.
+		$origins = ( ! empty( $settings['theme'] ) || ! empty( $settings['custom'] ) )
+			? array( 'theme', 'custom' )
+			: array( 'default' );
+
+		foreach ( $origins as $origin ) {
 			if ( empty( $settings[ $origin ] ) || ! is_array( $settings[ $origin ] ) ) {
 				continue;
 			}

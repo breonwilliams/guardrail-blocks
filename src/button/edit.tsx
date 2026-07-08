@@ -19,7 +19,11 @@ import {
 import { Notice, PanelBody, ToggleControl } from '@wordpress/components';
 import type { BlockEditProps } from '@wordpress/blocks';
 
-import { pickAccessibleForeground, type PaletteColor } from '../utils/contrast';
+import {
+	parseColor,
+	pickAccessibleForeground,
+	type PaletteColor,
+} from '../utils/contrast';
 
 // A type alias (not an interface) so it structurally satisfies the
 // Record< string, unknown > constraint on BlockEditProps.
@@ -72,22 +76,34 @@ export default function Edit( {
 	const { text, url, backgroundSlug, width } = attributes;
 	const palette = usePalette();
 
+	// Only offer colors the contrast engine can verify (constrain, don't
+	// configure). var(--x, #hex) fallbacks parse fine; a color with no
+	// recoverable value is not offered rather than silently unchecked.
+	const verifiablePalette = palette.filter(
+		( c ) => parseColor( c.color ) !== null
+	);
+	const hiddenCount = palette.length - verifiablePalette.length;
+
 	const background =
 		palette.find( ( c ) => c.slug === backgroundSlug ) ?? null;
 	const pairing = background
 		? pickAccessibleForeground( background.color, palette )
 		: null;
+	const unverifiableSelection = Boolean( background ) && ! pairing;
 
 	const blockProps = useBlockProps( {
 		className: width === 'full' ? 'ab-button--full' : undefined,
 	} );
 
-	const buttonStyle = background
-		? {
-				backgroundColor: background.color,
-				color: pairing?.foreground.color,
-		  }
-		: undefined;
+	// Only preview colors the engine verified — an unverifiable selection
+	// must not render a misleading (possibly failing) pairing.
+	const buttonStyle =
+		background && pairing
+			? {
+					backgroundColor: background.color,
+					color: pairing.foreground.color,
+			  }
+			: undefined;
 
 	const contrastStatus = pairing
 		? sprintf(
@@ -108,7 +124,7 @@ export default function Edit( {
 					title={ __( 'Background color', 'accessible-blocks' ) }
 				>
 					<ColorPalette
-						colors={ palette }
+						colors={ verifiablePalette }
 						value={ background?.color }
 						onChange={ ( newColor ) => {
 							const match = palette.find(
@@ -131,6 +147,26 @@ export default function Edit( {
 							{ __(
 								'No theme palette color passes WCAG AA on this background, so black/white was used instead.',
 								'accessible-blocks'
+							) }
+						</Notice>
+					) }
+					{ unverifiableSelection && (
+						<Notice status="warning" isDismissible={ false }>
+							{ __(
+								'The saved color can’t be contrast-checked with this theme, so it isn’t applied — the button uses the theme’s default button styling. Pick a color above to re-enable enforcement.',
+								'accessible-blocks'
+							) }
+						</Notice>
+					) }
+					{ hiddenCount > 0 && (
+						<Notice status="info" isDismissible={ false }>
+							{ sprintf(
+								/* translators: %d: number of hidden colors. */
+								__(
+									'%d theme color(s) aren’t offered because their values can’t be contrast-checked.',
+									'accessible-blocks'
+								),
+								hiddenCount
 							) }
 						</Notice>
 					) }

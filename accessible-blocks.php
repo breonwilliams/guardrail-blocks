@@ -31,6 +31,7 @@ define( 'ACCESSIBLE_BLOCKS_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 require_once ACCESSIBLE_BLOCKS_PLUGIN_DIR . 'includes/class-contrast.php';
 require_once ACCESSIBLE_BLOCKS_PLUGIN_DIR . 'includes/class-outline.php';
 require_once ACCESSIBLE_BLOCKS_PLUGIN_DIR . 'includes/class-block-registrar.php';
+require_once ACCESSIBLE_BLOCKS_PLUGIN_DIR . 'includes/class-patterns.php';
 
 /**
  * Boot the plugin.
@@ -41,6 +42,7 @@ require_once ACCESSIBLE_BLOCKS_PLUGIN_DIR . 'includes/class-block-registrar.php'
  */
 function bootstrap(): void {
 	( new Block_Registrar( ACCESSIBLE_BLOCKS_PLUGIN_DIR ) )->register_hooks();
+	( new Patterns() )->register_hooks();
 }
 
 bootstrap();

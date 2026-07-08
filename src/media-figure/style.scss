@@ -1,0 +1,24 @@
+/**
+ * Media Figure — minimal presentation; the value is in the markup.
+ */
+
+.wp-block-accessible-blocks-media-figure {
+	margin-inline: 0;
+
+	img {
+		display: block;
+		max-width: 100%;
+		height: auto;
+	}
+
+	.ab-media-figure__caption {
+		margin-block-start: 0.5em;
+		font-size: 0.875em;
+	}
+
+	// Editor-only replace button spacing (harmless on front end where the
+	// button never renders).
+	.ab-media-figure__replace {
+		margin-block-start: 0.5em;
+	}
+}

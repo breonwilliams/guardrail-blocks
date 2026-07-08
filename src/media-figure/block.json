@@ -1,0 +1,41 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "accessible-blocks/media-figure",
+	"version": "0.1.0",
+	"title": "Media Figure",
+	"category": "media",
+	"icon": "format-image",
+	"description": "An image with performance-correct markup guaranteed: responsive sizes, explicit dimensions (no layout shift), smart loading priority, and enforced alt text.",
+	"keywords": [ "image", "figure", "photo", "media", "accessible" ],
+	"textdomain": "accessible-blocks",
+	"attributes": {
+		"mediaId": {
+			"type": "number",
+			"default": 0
+		},
+		"alt": {
+			"type": "string",
+			"default": ""
+		},
+		"caption": {
+			"type": "string",
+			"default": ""
+		},
+		"isHero": {
+			"type": "boolean",
+			"default": false
+		}
+	},
+	"supports": {
+		"html": false,
+		"anchor": true,
+		"align": [ "wide", "full" ],
+		"spacing": {
+			"margin": true
+		}
+	},
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

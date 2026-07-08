@@ -1,0 +1,65 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "accessible-blocks/notice",
+	"version": "0.1.0",
+	"title": "Notice",
+	"category": "text",
+	"icon": "info-outline",
+	"description": "A callout with the correct semantic role built in — info, success, warning, or error — announced properly by screen readers and never relying on color alone.",
+	"keywords": [ "notice", "callout", "alert", "warning", "info", "accessible" ],
+	"textdomain": "accessible-blocks",
+	"attributes": {
+		"type": {
+			"type": "string",
+			"enum": [ "info", "success", "warning", "error" ],
+			"default": "info"
+		}
+	},
+	"supports": {
+		"html": false,
+		"anchor": true,
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	},
+	"variations": [
+		{
+			"name": "info",
+			"title": "Info notice",
+			"description": "Neutral supplementary information.",
+			"icon": "info-outline",
+			"attributes": { "type": "info" },
+			"scope": [ "block", "inserter", "transform" ],
+			"isDefault": true
+		},
+		{
+			"name": "success",
+			"title": "Success notice",
+			"description": "A positive status message.",
+			"icon": "yes-alt",
+			"attributes": { "type": "success" },
+			"scope": [ "block", "inserter", "transform" ]
+		},
+		{
+			"name": "warning",
+			"title": "Warning notice",
+			"description": "Something needing attention.",
+			"icon": "warning",
+			"attributes": { "type": "warning" },
+			"scope": [ "block", "inserter", "transform" ]
+		},
+		{
+			"name": "error",
+			"title": "Error notice",
+			"description": "A problem the reader must know about.",
+			"icon": "dismiss",
+			"attributes": { "type": "error" },
+			"scope": [ "block", "inserter", "transform" ]
+		}
+	],
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

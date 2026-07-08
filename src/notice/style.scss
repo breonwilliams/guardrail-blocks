@@ -1,0 +1,52 @@
+/**
+ * Notice — front-end and editor styles.
+ *
+ * Contrast-safe by construction: text inherits the theme's color and sits
+ * on the theme's background. The accent border is decorative (non-text),
+ * and the visible label carries the meaning — never color alone.
+ */
+
+.ab-notice {
+	display: flex;
+	gap: 0.75em;
+	align-items: baseline;
+	padding: 0.75em 1em;
+	border-inline-start: 4px solid currentcolor;
+
+	&__label {
+		flex: 0 0 auto;
+
+		&::after {
+			content: ":";
+		}
+	}
+
+	&__content {
+		flex: 1 1 auto;
+
+		> :first-child {
+			margin-block-start: 0;
+		}
+
+		> :last-child {
+			margin-block-end: 0;
+		}
+	}
+
+	// Accent hues are decorative only; readable text never sits on them.
+	&--info {
+		border-color: #2271b1;
+	}
+
+	&--success {
+		border-color: #00753a;
+	}
+
+	&--warning {
+		border-color: #996800;
+	}
+
+	&--error {
+		border-color: #b32d2e;
+	}
+}

@@ -1,0 +1,24 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "accessible-blocks/card",
+	"version": "0.1.0",
+	"title": "Card",
+	"category": "design",
+	"icon": "index-card",
+	"description": "One card in a Card Grid. Its title is an Accessible Heading, so card titles automatically join the page outline at the correct level.",
+	"keywords": [ "card", "feature", "tile" ],
+	"textdomain": "accessible-blocks",
+	"parent": [ "accessible-blocks/card-grid" ],
+	"attributes": {},
+	"usesContext": [ "accessible-blocks/headingLevel" ],
+	"supports": {
+		"html": false,
+		"reusable": false,
+		"spacing": {
+			"padding": true
+		}
+	},
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css"
+}

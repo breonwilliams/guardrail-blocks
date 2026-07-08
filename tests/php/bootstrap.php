@@ -193,6 +193,52 @@ if ( ! function_exists( 'parse_blocks' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wp_attachment_is_image' ) ) {
+	/**
+	 * Test stub: attachment 42 is the only "image".
+	 *
+	 * @param int $post_id Attachment id.
+	 */
+	function wp_attachment_is_image( int $post_id ): bool {
+		return 42 === $post_id;
+	}
+}
+
+if ( ! function_exists( 'wp_get_attachment_image' ) ) {
+	/**
+	 * Simplified stub mirroring core's contract: emits width/height,
+	 * src/srcset, and passes through the attr array (incl. alt/loading).
+	 *
+	 * @param int          $attachment_id Attachment.
+	 * @param string|array $size          Size.
+	 * @param bool         $icon          Icon.
+	 * @param array        $attr          Attributes.
+	 */
+	function wp_get_attachment_image( int $attachment_id, $size = 'thumbnail', bool $icon = false, array $attr = array() ): string {
+		unset( $size, $icon );
+
+		if ( 42 !== $attachment_id ) {
+			return '';
+		}
+
+		$attr = array_merge(
+			array(
+				'src'    => 'https://example.test/image-large.jpg',
+				'srcset' => 'https://example.test/image-large.jpg 1024w, https://example.test/image-small.jpg 300w',
+				'alt'    => '',
+			),
+			$attr
+		);
+
+		$html = '<img width="1024" height="683"';
+		foreach ( $attr as $key => $value ) {
+			$html .= ' ' . $key . '="' . esc_attr( (string) $value ) . '"';
+		}
+
+		return $html . ' />';
+	}
+}
+
 if ( ! function_exists( 'wp_get_global_settings' ) ) {
 	/**
 	 * @param array $path Settings path.

@@ -46,6 +46,7 @@ declare module '@wordpress/block-editor' {
 				template?: Array< [ string, Record< string, unknown >? ] >;
 				templateLock?: string | boolean;
 				allowedBlocks?: string[];
+				orientation?: 'horizontal' | 'vertical';
 			}
 		): BlockDOMProps;
 		save( props?: BlockDOMProps ): BlockDOMProps;
@@ -74,6 +75,17 @@ declare module '@wordpress/block-editor' {
 		value: string;
 		onChange: ( url: string ) => void;
 		className?: string;
+	} >;
+
+	export const MediaPlaceholder: ComponentType< {
+		accept?: string;
+		allowedTypes?: string[];
+		onSelect: ( media: {
+			id: number;
+			url?: string;
+			alt?: string;
+		} ) => void;
+		labels?: { title?: string; instructions?: string };
 	} >;
 
 	export const ColorPalette: ComponentType< {

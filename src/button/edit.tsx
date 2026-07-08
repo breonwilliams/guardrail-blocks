@@ -21,12 +21,14 @@ import type { BlockEditProps } from '@wordpress/blocks';
 
 import { pickAccessibleForeground, type PaletteColor } from '../utils/contrast';
 
-export interface ButtonAttributes {
+// A type alias (not an interface) so it structurally satisfies the
+// Record< string, unknown > constraint on BlockEditProps.
+export type ButtonAttributes = {
 	text: string;
 	url: string;
 	backgroundSlug: string;
 	width: 'auto' | 'full';
-}
+};
 
 /**
  * Normalize the (possibly origin-grouped) palette setting into a flat list.

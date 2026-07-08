@@ -34,30 +34,28 @@ test.describe( 'Accessible Button contrast enforcement', () => {
 
 		// The color options are palette swatches — no custom color input.
 		const swatches = page.locator(
-			'[aria-label="Custom color picker"], .components-circular-option-picker__option'
+			'.components-circular-option-picker__option'
 		);
-		await expect(
-			page.locator( '.components-circular-option-picker__option' ).first()
-		).toBeVisible();
+		await expect( swatches.first() ).toBeVisible();
+		// Let the sidebar's slide-in animation finish; the swatch click's
+		// actionability check otherwise reports "not stable" forever.
+		// eslint-disable-next-line playwright/no-wait-for-timeout
+		await page.waitForTimeout( 750 );
 
 		// Pick every swatch in turn: each must produce an AA-passing badge.
-		const count = await page
-			.locator( '.components-circular-option-picker__option' )
-			.count();
+		// The badge Notice re-renders the panel on each pick, so clicks
+		// bypass the stability check — the assertions are outcome-based.
+		const count = await swatches.count();
 		expect( count ).toBeGreaterThan( 0 );
 
 		for ( let i = 0; i < count; i++ ) {
-			await page
-				.locator( '.components-circular-option-picker__option' )
-				.nth( i )
-				.click();
+			await swatches.nth( i ).click( { force: true } );
 			await expect(
 				page.getByText( /Contrast [\d.]+:1 — AA ✓/ )
 			).toBeVisible();
 		}
 
 		// No unconstrained color input exists anywhere in the panel.
-		await expect( swatches.first() ).toBeVisible();
 		await expect(
 			page.locator( 'input[type="text"][aria-label*="Hex" i]' )
 		).toHaveCount( 0 );

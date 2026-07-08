@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<ruleset name="AccessibleBlocks">
+	<description>Coding standards for the Accessible Blocks plugin.</description>
+
+	<file>.</file>
+
+	<exclude-pattern>*/node_modules/*</exclude-pattern>
+	<exclude-pattern>*/vendor/*</exclude-pattern>
+	<exclude-pattern>*/build/*</exclude-pattern>
+
+	<arg name="extensions" value="php"/>
+	<arg name="colors"/>
+	<arg value="sp"/>
+
+	<!-- PHP 8.0+ floor (Foundation §16). -->
+	<config name="testVersion" value="8.0-"/>
+	<rule ref="PHPCompatibilityWP"/>
+
+	<!-- WordPress coding standards, including a11y-relevant sniffs. -->
+	<rule ref="WordPress">
+		<!-- Short array syntax is fine in modern PHP; keep parity with core gradually. -->
+	</rule>
+
+	<!-- Enforce the plugin's unique prefixes (Foundation §11). -->
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array">
+				<element value="AccessibleBlocks"/>
+				<element value="accessible_blocks"/>
+				<element value="ACCESSIBLE_BLOCKS"/>
+			</property>
+		</properties>
+	</rule>
+
+	<!-- Enforce the correct text domain everywhere (Foundation §11). -->
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="accessible-blocks"/>
+			</property>
+		</properties>
+	</rule>
+
+	<!-- Minimum WP 6.9: don't flag APIs available at our floor. -->
+	<config name="minimum_wp_version" value="6.9"/>
+</ruleset>

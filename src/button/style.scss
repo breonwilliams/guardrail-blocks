@@ -31,9 +31,9 @@
 			outline-offset: 3px;
 		}
 
-		&:hover {
-			text-decoration: underline;
-		}
+		// No hover rule on purpose: hover styling (background/elevation
+		// shift) belongs to the theme via wp-element-button. An underline
+		// would signal "text link" — the wrong affordance for a button.
 	}
 
 	&.ab-button--full .ab-button {

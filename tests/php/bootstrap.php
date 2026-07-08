@@ -138,6 +138,61 @@ if ( ! function_exists( 'wp_json_encode' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wp_strip_all_tags' ) ) {
+	/**
+	 * @param string $text Text.
+	 */
+	function wp_strip_all_tags( string $text ): string {
+		return trim( strip_tags( $text ) ); // phpcs:ignore
+	}
+}
+
+if ( ! function_exists( 'sanitize_title' ) ) {
+	/**
+	 * Simplified slugifier (behavior-compatible for ASCII input).
+	 *
+	 * @param string $title Title.
+	 */
+	function sanitize_title( string $title ): string {
+		$slug = strtolower( strip_tags( $title ) ); // phpcs:ignore
+		$slug = preg_replace( '/[^a-z0-9]+/', '-', $slug ) ?? '';
+		return trim( $slug, '-' );
+	}
+}
+
+if ( ! function_exists( 'esc_attr__' ) ) {
+	/**
+	 * @param string $text   Text.
+	 * @param string $domain Domain.
+	 */
+	function esc_attr__( string $text, string $domain = 'default' ): string {
+		unset( $domain );
+		return esc_attr( $text );
+	}
+}
+
+if ( ! function_exists( 'get_post' ) ) {
+	/**
+	 * @param int $post_id Post ID.
+	 */
+	function get_post( int $post_id ) {
+		$post = $GLOBALS['accessible_blocks_test_post'] ?? null;
+		return ( $post && (int) $post->ID === $post_id ) ? $post : null;
+	}
+}
+
+if ( ! function_exists( 'parse_blocks' ) ) {
+	/**
+	 * Test stub: post_content holds a JSON-encoded parsed-block tree.
+	 *
+	 * @param string $content Content.
+	 */
+	function parse_blocks( string $content ): array {
+		$decoded = json_decode( $content, true );
+		return is_array( $decoded ) ? $decoded : array();
+	}
+}
+
 if ( ! function_exists( 'wp_get_global_settings' ) ) {
 	/**
 	 * @param array $path Settings path.

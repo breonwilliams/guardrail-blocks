@@ -28,9 +28,13 @@ $accessible_blocks_level = isset( $block->context['accessible-blocks/headingLeve
 // stops at H6. Mirrors clampHeadingLevel() in src/utils/outline.ts.
 $accessible_blocks_level = min( max( $accessible_blocks_level, 2 ), 6 );
 
+// Anchor id so the Table of Contents can link here (same algorithm and
+// document order as the ToC walker → identical ids).
+$accessible_blocks_anchor = \AccessibleBlocks\Outline::unique_anchor( $accessible_blocks_content );
+
 printf(
 	'<h%1$d %2$s>%3$s</h%1$d>',
 	(int) $accessible_blocks_level,
-	get_block_wrapper_attributes(), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Pre-escaped by core.
+	get_block_wrapper_attributes( array( 'id' => $accessible_blocks_anchor ) ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Pre-escaped by core.
 	wp_kses_post( $accessible_blocks_content )
 );

@@ -1,0 +1,22 @@
+/**
+ * Table of Contents — front-end and editor styles.
+ *
+ * Minimal by design: list structure and typography come from the theme.
+ */
+
+.wp-block-accessible-blocks-table-of-contents {
+	.ab-toc__list {
+		margin: 0;
+		padding-inline-start: 1.25em;
+		list-style: decimal;
+	}
+
+	.ab-toc__item {
+		margin: 0.25em 0;
+	}
+
+	a:focus-visible {
+		outline: 2px solid currentcolor;
+		outline-offset: 2px;
+	}
+}

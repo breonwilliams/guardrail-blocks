@@ -66,8 +66,8 @@ $guardrail_blocks_build_list = static function ( array $entries ): string {
 		}
 
 		$guardrail_blocks_text = esc_html( $entry['text'] );
-		$html                  .= '<li class="ab-toc__item">';
-		$html                  .= '' !== $entry['anchor']
+		$html                 .= '<li class="ab-toc__item">';
+		$html                 .= '' !== $entry['anchor']
 			? '<a href="#' . esc_attr( $entry['anchor'] ) . '">' . $guardrail_blocks_text . '</a>'
 			: '<span>' . $guardrail_blocks_text . '</span>';
 

@@ -61,12 +61,14 @@ jobs:
         continue-on-error: true
       - name: Stage distributable plugin
         # Plugin Check must see what ships to WordPress.org — not dev
-        # files (tests, src, configs). Mirrors the plugin-zip file list.
+        # files (tests, configs). Mirrors the plugin-zip file list, which
+        # includes src/ so the uncompiled TS/SCSS ships alongside build/
+        # (WordPress.org source-access requirement).
         # The directory name becomes the plugin slug Plugin Check validates
         # against, so it must match the text domain.
         run: |
           mkdir -p dist/guardrail-blocks
-          cp -r guardrail-blocks.php readme.txt includes build dist/guardrail-blocks/
+          cp -r guardrail-blocks.php readme.txt includes build src package.json tsconfig.json dist/guardrail-blocks/
       - name: Run Plugin Check
         uses: wordpress/plugin-check-action@v1
         with:

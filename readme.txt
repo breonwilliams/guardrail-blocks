@@ -35,7 +35,9 @@ Accessible Section, Accessible Heading, Accessible Button, Card + Card Grid, Acc
 
 = Source code & development =
 
-The compiled block scripts in `build/` are generated with @wordpress/scripts (webpack). The complete, human-readable source code — TypeScript/SCSS sources, build tooling, and the full test suite — is developed publicly at [github.com/breonwilliams/guardrail-blocks](https://github.com/breonwilliams/guardrail-blocks). To rebuild from source: `npm install && npm run build`.
+The compiled block scripts in `build/` are generated with @wordpress/scripts (webpack). The complete, human-readable source code is included with this plugin in the `src/` directory (TypeScript and SCSS, one folder per block). To rebuild `build/` from it: `npm install && npm run build` (Node 22; `package.json` and `tsconfig.json` are included).
+
+Development happens publicly at https://github.com/breonwilliams/guardrail-blocks, which also carries the full test suite (Jest, PHPUnit, Playwright) and CI.
 
 == Frequently Asked Questions ==
 

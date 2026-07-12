@@ -22,6 +22,9 @@
 		"guardrail-blocks.php",
 		"includes",
 		"build",
+		"src",
+		"package.json",
+		"tsconfig.json",
 		"readme.txt"
 	],
 	"devDependencies": {

@@ -1,6 +1,6 @@
 {
 	"name": "guardrail-blocks",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "Accessibility-first blocks with WCAG-safe color contrast and unbreakable heading hierarchy — enforced by design.",
 	"author": "Breon Williams",
 	"license": "GPL-2.0-or-later",

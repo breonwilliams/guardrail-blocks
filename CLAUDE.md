@@ -11,7 +11,7 @@
 - **GitHub (canonical dev repo)**: https://github.com/breonwilliams/guardrail-blocks
 
 ### Release workflow (SVN is a release system, not git)
-1. Bump the version in **all three** places: `Version:` header in `guardrail-blocks.php`, `GUARDRAIL_BLOCKS_VERSION` constant, `Stable tag` in readme.txt (+ changelog entry).
+1. Bump the version in **all** places: `Version:` header in `guardrail-blocks.php`, `GUARDRAIL_BLOCKS_VERSION` constant, `Stable tag` in readme.txt (+ changelog entry), `"version"` in every `src/*/block.json` (drives style cache-busting `?ver=`), and package.json.
 2. `npm run build`, run the full check suite, then `npm run plugin-zip`.
 3. Sync the **zip contents** (not the dev tree) into `trunk/`: `guardrail-blocks.php`, `readme.txt`, `includes/`, `build/`, `src/`, `package.json`, `tsconfig.json`. The bundled `src/` is a WordPress.org source-access requirement — never drop it from releases.
 4. `svn cp trunk tags/X.Y.Z` — **every** release needs a tag matching `Stable tag`; never point `Stable tag` at trunk.

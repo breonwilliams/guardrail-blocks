@@ -4,7 +4,7 @@ Tags: accessibility, blocks, wcag, contrast, headings
 Requires at least: 6.9
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 0.1.0
+Stable tag: 0.1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -74,6 +74,11 @@ No. Zero external HTTP requests, no tracking, no accounts.
 
 == Changelog ==
 
+= 0.1.1 =
+* Heading levels are now also derived from the block tree's actual nesting on every render, so a stored level can never produce a wrong heading — the outline guarantee is enforced server-side end to end.
+* New theme-friendly design controls via core block supports: border on Card and Accordion; border radius on Button and Media Figure (rounds the image); padding on Accordion; font size on Accordion, Notice, and Table of Contents; margin on Accessible Heading.
+* Fixed: the Button's border radius now previews live in the editor with themes that style `wp-element-button` (Blocksy and similar).
+
 = 0.1.0 =
 * Initial release.
 * Blocks: Accessible Section, Accessible Heading, Accessible Button, Card + Card Grid, Accessible Accordion, Notice, Media Figure, Table of Contents.
@@ -83,6 +88,9 @@ No. Zero external HTTP requests, no tracking, no accounts.
 * Five patterns including the Starter Brochure Page.
 
 == Upgrade Notice ==
+
+= 0.1.1 =
+Stronger heading-outline enforcement (now server-side on every render) plus new border, spacing, and font-size controls that follow your theme.
 
 = 0.1.0 =
 Initial release.

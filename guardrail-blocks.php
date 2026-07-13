@@ -3,7 +3,7 @@
  * Plugin Name:       Guardrail Blocks
  * Plugin URI:        https://github.com/breonwilliams/guardrail-blocks
  * Description:       Accessibility-first blocks with WCAG-safe color contrast and unbreakable heading hierarchy — enforced by design, not left to the author.
- * Version:           0.1.0
+ * Version:           0.1.1
  * Requires at least: 6.9
  * Requires PHP:      8.0
  * Author:            Breon Williams
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'GUARDRAIL_BLOCKS_VERSION', '0.1.0' );
+define( 'GUARDRAIL_BLOCKS_VERSION', '0.1.1' );
 define( 'GUARDRAIL_BLOCKS_PLUGIN_FILE', __FILE__ );
 define( 'GUARDRAIL_BLOCKS_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'GUARDRAIL_BLOCKS_PLUGIN_URL', plugin_dir_url( __FILE__ ) );

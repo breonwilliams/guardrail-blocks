@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="accessible-blocks" data-name="Accessible Blocks" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <rect width="256" height="256" fill="#ffffff"/>
+  <rect x="40" y="40" width="176" height="176" rx="28" fill="#1A1A18"/>
+  <text x="122" y="156" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="104" font-weight="700" fill="#ffffff">Aa</text>
+  <circle cx="198" cy="198" r="30" fill="#9C5420" stroke="#ffffff" stroke-width="6"/>
+  <path d="M184 198 l9 9 l18 -19" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
